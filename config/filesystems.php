@@ -53,6 +53,83 @@ return [
             'use_path_style_endpoint' => env('AWS_USE_PATH_STYLE_ENDPOINT', false),
         ],
 
+        'groups-images' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/groups-images'),
+            'url' => env('APP_URL').'/groups-images',
+            'visibility' => 'public',
+        ],
+
+        'packages' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/packages'),
+            'url' => env('APP_URL').'/packages',
+            'visibility' => 'public',
+        ],
+
+        'packages-images' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/packages-images'),
+            'url' => env('APP_URL').'/packages-images',
+            'visibility' => 'public',
+        ],
+
+        'packages-database' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/packages-database'),
+            'url' => env('APP_URL').'/packages-database',
+            'visibility' => 'public',
+        ],
+
+        'packages-info-files' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/packages-info-files'),
+            'url' => env('APP_URL').'/packages-info-files',
+            'visibility' => 'public',
+        ],
+
+        'package-xml-files' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/package-xml-files'),
+            'url' => env('APP_URL').'/package-xml-files',
+            'visibility' => 'public',
+        ],
+
+        'releases' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/releases'),
+            'url' => env('APP_URL').'/releases',
+            'visibility' => 'public',
+        ],
+
+        'pkginfo' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/pkginfo'),
+            'url' => env('APP_URL').'/pkginfo',
+            'visibility' => 'public',
+        ],
+
+        'downloads' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/downloads'),
+            'url' => env('APP_URL').'/downloads',
+            'visibility' => 'public',
+        ],
+
+        'posts-images' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/posts-images'),
+            'url' => env('APP_URL').'/posts-images',
+            'visibility' => 'public',
+        ],
+
+        'trix-attachment' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/trix-attachment'),
+            'url' => env('APP_URL').'/trix-attachment',
+            'visibility' => 'public',
+        ],
+
     ],
 
     /*

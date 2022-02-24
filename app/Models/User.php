@@ -11,7 +11,7 @@ use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Jetstream\HasTeams;
 use Laravel\Sanctum\HasApiTokens;
 
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail
 {
     use HasApiTokens;
     use HasFactory;
@@ -19,6 +19,20 @@ class User extends Authenticatable
     use HasTeams;
     use Notifiable;
     use TwoFactorAuthenticatable;
+
+    /**
+    * The database used by the model.
+    *
+    * @var string
+    */
+    protected $connection = "mysql";
+
+    /**
+    * The database table used by the model.
+    *
+    * @var string
+    */
+    protected $table = 'users';
 
     /**
      * The attributes that are mass assignable.
@@ -58,4 +72,121 @@ class User extends Authenticatable
     protected $appends = [
         'profile_photo_url',
     ];
+ /**
+    * posts
+    * use has one gender
+    * @return void
+    */
+    public function gender()
+    {
+        return $this->hasOne(Gender::class, 'user_id');
+    }
+
+    /**
+    * posts
+    * user has many one gender
+    * @return void
+    */
+    public function rating()
+    {
+        return $this->hasMany(Rating::class, 'user_id');
+    }
+
+        /**
+     * posts
+     * use has many posts
+     * @return void
+     */
+    public function posts()
+    {
+        return $this->hasMany(Post::class, 'user_id');
+    }
+
+    /**
+    * posts
+    * use has many products
+    * @return void
+    */
+    public function products()
+    {
+        return $this->hasMany(Product::class, 'user_id');
+    }
+
+    /**
+     * comments
+     * user has many comments
+     * @return void
+     */
+    public function comments()
+    {
+        return $this->hasMany(Comment::class, 'user_id');
+    }
+
+    /**
+    * address
+    * use has many addresses
+    * @return void
+    */
+    public function address()
+    {
+        return $this->hasMany(Address::class, 'user_id');
+    }
+
+    /**
+    * roles
+    * use has many skills
+    * @return void
+    */
+    public function roles()
+    {
+        return $this->hasOne(Role::class, 'user_id');
+    }
+
+    /**
+    * canPost
+    * true if user role is author or admin
+    * else
+    * false
+    * @return void
+    */
+    public function canUpdateRole()
+    {
+        $role = $this->role;
+        if ($role == 'admin') {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * canPost
+     * true if user role is author or admin
+     * else
+     * false
+     * @return void
+     */
+    public function canUploadImages()
+    {
+        $role = $this->role;
+        if ($role == 'author' || $role == 'admin') {
+            return true;
+        }
+        return false;
+    }
+
+        /**
+     * canPost
+     * true if user role is author or admin
+     * else
+     * false
+     * @return void
+     */
+    public function canPost()
+    {
+        $role = $this->role;
+        if ($role == 'author' || $role == 'admin') {
+            return true;
+        }
+        return false;
+    }
 }
