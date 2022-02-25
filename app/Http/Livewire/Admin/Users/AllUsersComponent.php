@@ -29,6 +29,7 @@ class AllUsersComponent extends Component
     // public $isPageActive = true;
     // public $photo;
     // public $pageBannerPhotoPath;
+    public $isSetToActive = false;
     public $recordsToDisplay = 10;
     public $postStatus = 1;
     public $query = '';
@@ -38,7 +39,7 @@ class AllUsersComponent extends Component
      */
     public $role;
     public $name;
-    public $activeStatus;
+    // public $activeStatus;
     public $isActive = 1;
     public $isOnline = 1;
 
@@ -118,7 +119,7 @@ class AllUsersComponent extends Component
         return [
             'name' => 'required',
             'role' => 'required',
-            'activeStatus' => 'required',
+            'isSetToActive' => 'required',
         ];
     }
 
@@ -293,7 +294,8 @@ class AllUsersComponent extends Component
         $data = User::find($this->modelId);
         $this->name = $data->name;
         $this->role = $data->role;
-        $this->activeStatus = $data->is_active;
+        $this->isSetToActive = !$data->is_active ? null : true;
+        // $this->activeStatus = $data->is_active;
     }
 
     /**
@@ -307,7 +309,7 @@ class AllUsersComponent extends Component
         return [
             'name' => $this->name,
             'role' => $this->role,
-            'is_active' => $this->activeStatus,
+            'is_active' => $this->isSetToActive,
         ];
     }
 

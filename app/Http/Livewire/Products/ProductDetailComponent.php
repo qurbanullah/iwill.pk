@@ -9,6 +9,7 @@ use Livewire\Component;
 use App\Models\Product;
 use App\Models\ProductReview;
 use App\Models\Address;
+use Exception;
 use Cart;
 
 class ProductDetailComponent extends Component
@@ -113,11 +114,21 @@ class ProductDetailComponent extends Component
         $productVendor = $productData->user_id;
         // dd($serviceProvider);
         $productVendorAddress = Address::where('user_id', $productVendor)->first();
-
-
-        $this->productVendorPhoneNo = $productVendorAddress->phone_no;
-        $this->productVendorMobileNo = $productVendorAddress->mobile_no;
-        $this->modalPhoneNoVisible = true;
+        if ($productVendorAddress){
+            if ($productVendorAddress->phone_no){
+                $this->productVendorPhoneNo = $productVendorAddress->phone_no;
+            }
+            if($productVendorAddress->mobile_no){
+                $this->productVendorMobileNo = $productVendorAddress->mobile_no;
+            }
+        }
+        if (!empty($this->productVendorPhoneNo) || !empty($this->productVendorMobileNo)){
+            $this->modalPhoneNoVisible = true;
+        }
+        else {
+            $this->dispatchBrowserEvent('alert',
+            ['type' => 'warning',  'message' => 'Phone No not provided.']);
+        }
     }
 
     /**
@@ -163,8 +174,16 @@ class ProductDetailComponent extends Component
     */
     public function AddProductToCart($product_id, $product_name, $product_price)
     {
-        Cart::instance('cart')->add($product_id, $product_name, $this->qty, $product_price)->associate('App\Models\Product');
+        try{
+            Cart::instance('cart')->add($product_id, $product_name, $this->qty, $product_price)->associate('App\Models\Product');
 
+            $this->dispatchBrowserEvent('alert',
+            ['type' => 'success',  'message' => 'Product Added to Cart.']);
+
+        }catch(Exception $e){
+            $this->dispatchBrowserEvent('alert',
+            ['type' => 'warning',  'message' => 'Error Adding Product to Cart.']);
+        }
         // dd(Cart::content());
 
         session()->flash('message', 'Item added in cart');

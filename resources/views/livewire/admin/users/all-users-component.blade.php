@@ -83,7 +83,7 @@
                                             <th class="px-6 py-3 text-left text-xs leading-4 font-medium uppercase tracking-wider">Name</th>
                                             <th class="px-6 py-3 text-left text-xs leading-4 font-medium uppercase tracking-wider">Email</th>
                                             <th class="px-6 py-3 text-left text-xs leading-4 font-medium uppercase tracking-wider">Role</th>
-                                            {{-- <th class="px-6 py-3 text-left text-xs leading-4 font-medium uppercase tracking-wider">Status</th> --}}
+                                            <th class="px-6 py-3 text-left text-xs leading-4 font-medium uppercase tracking-wider">Status</th>
                                             <th class="px-6 py-3 text-left text-xs leading-4 font-medium uppercase tracking-wider">Online</th>
                                             <th class="px-6 py-3 text-left text-xs leading-4 font-medium uppercase tracking-wider">Last seen</th>
                                             <th class="px-6 py-3 text-left text-xs leading-4 font-medium uppercase tracking-wider">Action</th>
@@ -96,7 +96,7 @@
                                                     <tr>
                                                         <td class="px-6 py-2 text-sm whitespace-no-wrap">
                                                             <a
-                                                                class="text-blue-500 hover:text-blue-400 dark:text-blue-300 dark:hover:text-blue-400"
+                                                                class="text-sm text-blue-500 hover:text-blue-400 dark:text-blue-300 dark:hover:text-blue-400"
                                                                 target="_blank"
                                                                 href="#">
                                                                 {{ $item->name }}
@@ -108,10 +108,10 @@
                                                         <td class="px-6 py-2 text-sm whitespace-no-wrap">
                                                             {{ $item->role }}
                                                         </td>
-                                                        {{-- <td class="px-6 py-4 text-sm whitespace-no-wrap">
-                                                            {{ $item->is_active }}
-                                                        </td> --}}
-                                                        <td>
+                                                        <td class="px-6 py-4 text-sm whitespace-no-wrap">
+                                                            {{ ($item->is_active == 1) ? 'Active' : 'Inactive' }}
+                                                        </td>
+                                                        <td class="px-6 py-2 text-sm whitespace-no-wrap">
                                                             @if(Cache::has('user-is-online-' . $item->id))
                                                                 <span class="text-green-500">Online</span>
                                                             @else
@@ -119,7 +119,7 @@
                                                             @endif
                                                         </td>
 
-                                                        <td>
+                                                        <td class="px-6 py-2 text-sm whitespace-no-wrap">
                                                             {{ \Carbon\Carbon::parse($item->last_seen)->diffForHumans() }}
                                                         </td>
 
@@ -164,7 +164,7 @@
                                                     <tr>
                                                         <td class="px-6 py-2 text-sm whitespace-no-wrap">
                                                             <a
-                                                            class="text-blue-500 hover:text-blue-400 dark:text-blue-300 dark:hover:text-blue-400"
+                                                            class="text-sm text-blue-500 hover:text-blue-400 dark:text-blue-300 dark:hover:text-blue-400"
                                                                 target="_blank"
                                                                 href="#">
                                                                 {{ $item->name }}
@@ -176,10 +176,10 @@
                                                         <td class="px-6 py-2 text-sm whitespace-no-wrap">
                                                             {{ $item->role }}
                                                         </td>
-                                                        {{-- <td class="px-6 py-4 text-sm whitespace-no-wrap">
-                                                            {{ $item->is_active }}
-                                                        </td> --}}
-                                                        <td>
+                                                        <td class="px-6 py-4 text-sm whitespace-no-wrap">
+                                                            {{ ($item->is_active == 1) ? 'Active' : 'Inactive' }}
+                                                        </td>
+                                                        <td class="px-6 py-2 text-sm whitespace-no-wrap">
                                                             @if(Cache::has('user-is-online-' . $item->id))
                                                                 <span class="text-green-500">Online</span>
                                                             @else
@@ -187,7 +187,7 @@
                                                             @endif
                                                         </td>
 
-                                                        <td>
+                                                        <td class="px-6 py-2 text-sm whitespace-no-wrap">
                                                             {{ \Carbon\Carbon::parse($item->last_seen)->diffForHumans() }}
                                                         </td>
 
@@ -246,24 +246,39 @@
         <div>
             <x-jet-dialog-modal wire:model="modalFormVisible">
                 <x-slot name="title">
-                    {{ __('Save User') }}
+                    {{ __('Update User') }}
                 </x-slot>
 
                 <x-slot name="content">
                     <div class="mt-4">
-                        <x-jet-label for="name" value="{{ __('Name') }}" />
-                        <x-jet-input id="name" class="block mt-1 w-full" type="text" wire:model.debounce.800ms="name" />
+                        <x-jet-label for="name" value="{{ __('Name:') }}" />
+                        <x-jet-input id="name" class="block w-64 text-sm" type="text" wire:model.debounce.800ms="name" />
                         @error('name') <span class="error">{{ $message }}</span> @enderror
                     </div>
-                    <div class="mt-4">
-                        <x-jet-label for="role" value="{{ __('Role') }}" />
-                        <x-jet-input id="role" class="block mt-1 w-full" type="text" wire:model.debounce.800ms="role" />
-                        @error('role') <span class="error">{{ $message }}</span> @enderror
+                    <div class="pt-4 inline-block relative w-64">
+                        <label class="text-sm pr-4">
+                            <span class="text-gray-700 dark:text-gray-100">{{ __('Role:') }}</span>
+                        </label>
+                        <select wire:model="role"  class="w-64 bg-gray-200 dark:bg-gray-700 text-sm focus:outline-none focus:ring-1 focus:ring-gray-100 rounded text-gray-800 dark:text-gray-300 placeholder-gray-700 dark:placeholder-gray-400">
+                            <option class="text-sm bg-gray-200 dark:bg-gray-700">Select User Role</option>
+                            <option class="text-sm bg-gray-200 dark:bg-gray-700" value="author">Author</option>
+                            <option class="text-sm bg-gray-200 dark:bg-gray-700" value="business-owner">Business Owner</option>
+                            <option class="text-sm bg-gray-200 dark:bg-gray-700" value="client">Client</option>
+                            <option class="text-sm bg-gray-200 dark:bg-gray-700" value="employ">Employ</option>
+                            <option class="text-sm bg-gray-200 dark:bg-gray-700" value="professional">Professional</option>
+                            <option class="text-sm bg-gray-200 dark:bg-gray-700" value="seller">Seller</option>
+                            <option class="text-sm bg-gray-200 dark:bg-gray-700" value="service-provider">Service Provider</option>
+                            <option class="text-sm bg-gray-200 dark:bg-gray-700" value="subscriber">Subscriber</option>
+                            <option class="text-sm bg-gray-200 dark:bg-gray-700" value="vendor">Vendor</option>
+                        </select>
+
+                        <x-jet-input-error for="role" class="mt-2" />
                     </div>
                     <div class="mt-4">
-                        <x-jet-label for="activeStatus" value="{{ __('Active Status') }}" />
-                        <x-jet-input id="activeStatus" class="block mt-1 w-full" type="text" wire:model.debounce.800ms="activeStatus" />
-                        @error('activeStatus') <span class="error">{{ $message }}</span> @enderror
+                        <label>
+                            <span class="text-sm text-gray-800 dark:text-gray-300">{{ __('Set as Active:') }}</span>
+                            <input class="ml-2" type="checkbox" value="{{ $isSetToActive }}" wire:model="isSetToActive"/>
+                        </label>
                     </div>
                 </x-slot>
 

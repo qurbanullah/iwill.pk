@@ -5,6 +5,7 @@ namespace App\Http\Livewire\Products;
 use Livewire\Component;
 use Carbon\Carbon;
 use App\Models\Coupon;
+use Exception;
 use Cart;
 
 use function PHPUnit\Framework\returnSelf;
@@ -36,40 +37,82 @@ class ProductCartComponent extends Component
 
     public function deleteCartItem($rowId)
     {
-        Cart::instance('cart')->remove($rowId);
-        $this->emitTo('products.product-cart-count-component', 'refreshComponent');
+        try{
+            Cart::instance('cart')->remove($rowId);
+            $this->emitTo('products.product-cart-count-component', 'refreshComponent');
+
+            $this->dispatchBrowserEvent('alert',
+            ['type' => 'success',  'message' => 'Cart Item Removed.']);
+        }catch(Exception $e){
+            $this->dispatchBrowserEvent('alert',
+            ['type' => 'warning',  'message' => 'Error Removing Cart Item']);
+        }
+
         session()->flash('message', 'Item has been removed.');
     }
 
     public function destroyAllCartItem()
     {
-        Cart::instance('cart')->destroy();
-        $this->emitTo('products.product-cart-count-component', 'refreshComponent');
+        try{
+            Cart::instance('cart')->destroy();
+            $this->emitTo('products.product-cart-count-component', 'refreshComponent');
+            $this->dispatchBrowserEvent('alert',
+            ['type' => 'success',  'message' => 'All Cart Items have been Removed.']);
+        }catch(Exception $e){
+            $this->dispatchBrowserEvent('alert',
+            ['type' => 'warning',  'message' => 'Error Removing All Cart Items']);
+        }
+
         session()->flash('message', 'All cart items has been removed.');
     }
 
     public function SwitchToSaveForLater($rowId)
     {
         $item = Cart::instance('cart')->get($rowId);
-        Cart::instance('cart')->remove($rowId);
-        Cart::instance('saveForLater')->add($item->id, $item->name, 1, $item->price)->associate('App\Models\Product');
-        $this->emitTo('products.product-cart-count-component', 'refreshComponent');
+        try{
+            Cart::instance('cart')->remove($rowId);
+            Cart::instance('saveForLater')->add($item->id, $item->name, 1, $item->price)->associate('App\Models\Product');
+            $this->emitTo('products.product-cart-count-component', 'refreshComponent');
+            $this->dispatchBrowserEvent('alert',
+            ['type' => 'success',  'message' => 'Cart Item Saved for Later.']);
+        }catch(Exception $e){
+            $this->dispatchBrowserEvent('alert',
+            ['type' => 'warning',  'message' => 'Error Saving Cart Item for Later']);
+        }
+
         session()->flash('message', 'Item has been saved for later');
     }
 
     public function SwitchFromSaveForLaterToCart($rowId)
     {
         $item = Cart::instance('saveForLater')->get($rowId);
-        Cart::instance('saveForLater')->remove($rowId);
-        Cart::instance('cart')->add($item->id, $item->name, 1, $item->price)->associate('App\Models\Product');
-        $this->emitTo('products.product-cart-count-component', 'refreshComponent');
+        try{
+            Cart::instance('saveForLater')->remove($rowId);
+            Cart::instance('cart')->add($item->id, $item->name, 1, $item->price)->associate('App\Models\Product');
+            $this->emitTo('products.product-cart-count-component', 'refreshComponent');
+            $this->dispatchBrowserEvent('alert',
+            ['type' => 'success',  'message' => 'Saved Item moved to Cart.']);
+        }catch(Exception $e){
+            $this->dispatchBrowserEvent('alert',
+            ['type' => 'warning',  'message' => 'Error Moving Saved Item to Cart']);
+        }
+
         session()->flash('message', 'Item has been moved to cart');
     }
 
     public function deleteFromSaveForLater($rowId)
     {
-        Cart::instance('saveForLater')->remove($rowId);
-        $this->emitTo('products.product-cart-count-component', 'refreshComponent');
+        try{
+            Cart::instance('saveForLater')->remove($rowId);
+            $this->emitTo('products.product-cart-count-component', 'refreshComponent');
+
+            $this->dispatchBrowserEvent('alert',
+            ['type' => 'success',  'message' => 'Saved Item Removed.']);
+        }catch(Exception $e){
+            $this->dispatchBrowserEvent('alert',
+            ['type' => 'warning',  'message' => 'Error Removing Saved Item']);
+        }
+
         session()->flash('message', 'Item has been removed.');
     }
 
@@ -160,6 +203,9 @@ class ProductCartComponent extends Component
             else {
                 $this->calculateDiscounts();
             }
+        }
+        if (auth()->check()){
+            Cart::instance('cart')->store(auth()->user()->email);
         }
         $this->setAmountForCheckout();
         return view('livewire.products.product-cart-component');

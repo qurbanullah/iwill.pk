@@ -53,10 +53,10 @@ return [
             'use_path_style_endpoint' => env('AWS_USE_PATH_STYLE_ENDPOINT', false),
         ],
 
-        'groups-images' => [
+        'products-images' => [
             'driver' => 'local',
-            'root' => storage_path('app/public/groups-images'),
-            'url' => env('APP_URL').'/groups-images',
+            'root' => storage_path('app/public/products-images'),
+            'url' => env('APP_URL').'/products-images',
             'visibility' => 'public',
         ],
 
@@ -145,6 +145,8 @@ return [
 
     'links' => [
         public_path('storage') => storage_path('app/public'),
+        public_path('profile-photos') => storage_path('app/public/profile-photos'),
+        public_path('products-images') => storage_path('app/public/products-images'),
     ],
 
 ];

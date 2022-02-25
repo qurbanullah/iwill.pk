@@ -1,14 +1,14 @@
 <div>
     <div class="bg-gray-300 dark:bg-gray-900">
         <div class="py-12">
-            <div class="max-w-7xl mx-auto bg-white dark:bg-gray-700 shadow-lg rounded-lg md:max-w-3xl mx-2">
+            <div class="max-w-7xl mx-auto bg-white dark:bg-gray-700 shadow-lg rounded-lg md:max-w-3xl">
                 <div class="md:flex ">
                     <div class="w-full p-4 px-5 py-5">
                         <div class="flex flex-row">
-                            <h2 class="text-3xl text-green-400 font-semibold">Rely</h2>
-                            <h2 class="text-3xl font-semibold">face</h2>
+                            <h2 class="text-3xl font-semibold">I</h2>
+                            <h2 class="text-3xl font-semibold text-green-400">will</h2>
                         </div>
-                        <div class="flex flex-row pt-2 text-xs pt-6 pb-5">
+                        <div class="flex flex-row text-xs pt-6 pb-5">
                             <span class="font-bold">Products</span>
                             <small class="text-gray-400 ml-1">></small>
                             <span class="text-gray-400 ml-1">Shopping</span>

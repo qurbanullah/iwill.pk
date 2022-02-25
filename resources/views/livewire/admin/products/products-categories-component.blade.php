@@ -108,8 +108,8 @@
                                                         <td class="px-6 py-2 text-sm whitespace-no-wrap">
                                                             {{ $item->image }}
                                                         </td>
-                                                        <td class="px-6 py-2 text-sm whitespace-no-wrap">
-                                                            {{ $item->is_active }}
+                                                        <td class="px-6 py-4 text-sm whitespace-no-wrap">
+                                                            {{ ($item->is_active == 1) ? 'Active' : 'Inactive' }}
                                                         </td>
 
                                                         <td class="px-6 py-2 text-right text-sm">
@@ -168,8 +168,8 @@
                                                         <td class="px-6 py-2 text-sm whitespace-no-wrap">
                                                             {{ $item->image }}
                                                         </td>
-                                                        <td class="px-6 py-2 text-sm whitespace-no-wrap">
-                                                            {{ $item->is_active }}
+                                                        <td class="px-6 py-4 text-sm whitespace-no-wrap">
+                                                            {{ ($item->is_active == 1) ? 'Active' : 'Inactive' }}
                                                         </td>
                                                         <td class="px-6 py-2 text-right text-sm">
                                                             <button>
@@ -231,17 +231,17 @@
                 <x-slot name="content">
                     <div class="mt-4">
                         <x-jet-label for="name" value="{{ __('Name') }}" class="text-lg dark:text-white" />
-                        <x-jet-input id="name" class="block mt-1 w-full dark:bg-gray-500 dark:text-white" type="text" wire:model.debounce.800ms="name" />
+                        <x-jet-input id="name" class="w-full" type="text" wire:model.debounce.800ms="name" />
                         @error('name') <span class="error text-red-500">{{ $message }}</span> @enderror
                     </div>
                     <div class="mt-4">
-                        <x-jet-label for="category" value="{{ __('Slug') }}" class="text-lg dark:text-white" />
+                        <x-jet-label for="category" value="{{ __('Slug') }}" class="text-base dark:text-white" />
                         <div class="mt-1 flex rounded-md shadow-sm">
                             <div class="mt-1 flex rounded-md shadow-sm">
-                                    <span class="hidden md:inline-flex items-center px-3 rounded-l-md border border-r-0 border-gray-300 bg-gray-50 text-gray-500 dark:bg-gray-500 dark:text-white text-sm">
+                                    <span class="hidden md:inline-flex items-center pl-2 rounded-l-md border border-r-0 border-gray-300 bg-white text-gray-700 dark:bg-gray-700 dark:text-gray-300 text-sm">
                                         {{ config('app.url') . '/product-categories/product-category-show/' }}
                                     </span>
-                                    <x-jet-input  id="slug" wire:model="slug" class="form-input px-3 flex-1 block w-full rounded-l-md rounded-r-md md:rounded-l-none border border-r-0 border-gray-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5 dark:bg-gray-500 dark:text-white" placeholder="url-slug" />
+                                    <x-jet-input  id="slug" wire:model="slug" class="form-input flex-1 block w-full rounded-l-md rounded-r-md md:rounded-l-none border border-l-0 border-gray-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5 bg-white dark:bg-gray-700 dark:text-gray-300" placeholder="url-slug" />
                                 </div>
                         @error('slug') <span class="error text-red-500">{{ $message }}</span> @enderror
                     </div>
@@ -252,9 +252,9 @@
                         </label>
                     </div>
                     <div class="mt-4">
-                        <x-jet-label for="title" value="{{ __('Content') }}" class="text-lg dark:text-white" />
+                        <x-jet-label for="title" value="{{ __('Content') }}" class="text-lg dark:text-gray-300" />
                         <div class="rounded-md shadow-sm">
-                            <div class="mt-1 bg-white dark:bg-gray-500 dark:text-white">
+                            <div class="bg-white dark:bg-gray-700 text-gray-800 dark:text-gray-300 text-sm">
                                 <div class="body-content" wire:ignore>
                                     <trix-editor
                                         name="content"
@@ -315,18 +315,18 @@
                 </x-slot>
 
                 <x-slot name="footer">
-                    <x-jet-secondary-button wire:click="$toggle('modalFormVisible')" wire:loading.attr="disabled">
-                        {{ __('Nevermind') }}
-                    </x-jet-secondary-button>
+                    <x-jet-danger-button wire:click="$toggle('modalFormVisible')" wire:loading.attr="disabled">
+                        {{ __('Cancel') }}
+                    </x-jet-danger-button>
 
                     @if ($modelId)
                         <x-jet-button class="ml-2" wire:click="update" wire:loading.attr="disabled">
                             {{ __('Update') }}
-                        </x-jet-danger-button>
+                        </x-jet-button>
                     @else
                         <x-jet-button class="ml-2" wire:click="create" wire:loading.attr="disabled">
                             {{ __('Create') }}
-                        </x-jet-danger-button>
+                        </x-jet-button>
                     @endif
 
                 </x-slot>

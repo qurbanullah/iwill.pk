@@ -2,7 +2,39 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Livewire\Admin\Products\AdminProductOrderDetail;
+use App\Http\Livewire\Products\ProductCartComponent;
+use App\Http\Livewire\Products\ProductsByCategory;
+use App\Http\Livewire\Products\ProductDetailComponent;
+use App\Http\Livewire\Products\ProductEditComponent;
+use App\Http\Livewire\Products\ProductWishlistComponent;
+use App\Http\Livewire\Users\UserProductComponent;
+use App\Http\Livewire\Users\UserProductOrderComponent;
+use App\Http\Livewire\Users\UserProductOrderDetailComponent;
 
+
+use App\Http\Livewire\Pages\PageShow;
+use App\Http\Livewire\Posts\PostShow;
+use App\Http\Livewire\Posts\PostEdit;
+use App\Http\Livewire\Admin\Businesses\EditBusinessComponent;
+use App\Http\Livewire\Admin\Categories\MainCategoriesComponent;
+
+
+
+
+use App\Http\Livewire\Users\Professional;
+use App\Http\Livewire\Users\ProfessionalsSearchResult;
+
+use App\Http\Livewire\Admin\EditProfessionSubCategories;
+use App\Http\Livewire\Admin\Services\EditService;
+use App\Http\Livewire\Admin\Services\EditServiceComponent;
+use App\Http\Livewire\Businesses\BusinessDetailComponent;
+use App\Http\Livewire\Businesses\BusinessEditComponent;
+use App\Http\Livewire\Pages\PageDetailComponent;
+
+use App\Http\Livewire\SearchProfessionals;
+use App\Http\Livewire\Services\ServiceCheckoutComponent;
+use App\Http\Livewire\Services\ServiceDetailComponent;
+use App\Http\Livewire\Services\ServiceEditComponent;
 
 
 /*
@@ -24,7 +56,11 @@ use App\Http\Livewire\Admin\Products\AdminProductOrderDetail;
 //     return view('dashboard');
 // })->name('dashboard');
 
+/////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////
 // Start of routes those; require snctum authentication
+// and with middleware 'ensure.user.is.admin'
+
 Route::group(['middleware' => [
     'auth:sanctum',
     'verified',
@@ -36,7 +72,8 @@ Route::group(['middleware' => [
         return view('admin.dashboard.admin-dashboard');
     })->name('admin.dashboard.admin-dashboard');
 
-    // Manage users
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // Manage Users
     Route::get('/admin/users', function () {
         return view('admin.users.all-users');
     })->name('admin.users.all-users');
@@ -45,10 +82,61 @@ Route::group(['middleware' => [
         return view('admin.users.online-users');
     })->name('admin.users.online-users');
 
+    // Manage Users
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // Manage Products
+
+    Route::get('/admin/products/all-products', function () {
+        return view('admin.products.all-products');
+    })->name('admin.products.all-products');
+
+    // Display product orders
+    Route::get('/admin/products-orders', function () {
+        return view('admin.products.product-orders');
+    })->name('admin.products.products-orders');
+
+    // Display Product order detail
+    Route::get('/admin/admin-product-order-detail/{order_id}', AdminProductOrderDetail::class)->name('admin.admin-product-order-detail');
+
+    // Manage Coupons
+    Route::get('/admin/coupons', function () {
+        return view('admin.coupons');
+    })->name('admin.coupons');
+
+    Route::get('/admin/user-products', function () {
+        return view('admin.products.user-products');
+    })->name('admin.products.user-products');
+
+    Route::get('/admin/products/product-categories', function () {
+        return view('admin.products.products-categories');
+    })->name('admin.products.products-categories');
+
+    Route::get('/admin/products/products-sub-categories', function () {
+        return view('admin.products.products-sub-categories');
+    })->name('admin.products.products-sub-categories');
+
+    Route::get('/admin/products/products-sub-sub-categories', function () {
+        return view('admin.products.products-sub-sub-categories');
+    })->name('admin.products.products-sub-sub-categories');
+
+    Route::get('/admin/products/add-products-categories', function () {
+        return view('admin.products.add-products-categories');
+    })->name('admin.products.add-products-categories');
+
+    Route::get('/admin/products/product-vendors', function () {
+        return view('admin.products.products-vendors');
+    })->name('admin.products.products-vendors');
+
+    // End Products
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
     // Main Categories
-    Route::get('/admin/categories/add-main-categories', function () {
-        return view('admin.categories.add-main-categories');
-    })->name('admin.categories.add-main-categories');
+    // Route::get('/admin/categories/add-main-categories', function () {
+    //     return view('admin.categories.add-main-categories');
+    // })->name('admin.categories.add-main-categories');
 
     // Route::get('/admin/categories/main-categories', function () {
     //     return view('admin.categories.main-categories');
@@ -100,53 +188,6 @@ Route::group(['middleware' => [
     // })->name('admin.professions.profession-sub-sub-categories');
     // // End Professions
 
-//////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    // // Manage Products
-    Route::get('/admin/products/all-products', function () {
-        return view('admin.products.all-products');
-    })->name('admin.products.all-products');
-
-    // // Display product orders
-    Route::get('/admin/products-orders', function () {
-        return view('admin.products.product-orders');
-    })->name('admin.products.products-orders');
-
-    // // Display Product order detail
-    Route::get('/admin/admin-product-order-detail/{order_id}', AdminProductOrderDetail::class)->name('admin.admin-product-order-detail');
-
-    // // Manage Coupons
-    Route::get('/admin/coupons', function () {
-        return view('admin.coupons');
-    })->name('admin.coupons');
-
-    Route::get('/admin/user-products', function () {
-        return view('admin.products.user-products');
-    })->name('admin.products.user-products');
-
-    Route::get('/admin/products/product-categories', function () {
-        return view('admin.products.products-categories');
-    })->name('admin.products.products-categories');
-
-    Route::get('/admin/products/products-sub-categories', function () {
-        return view('admin.products.products-sub-categories');
-    })->name('admin.products.products-sub-categories');
-
-    Route::get('/admin/products/products-sub-sub-categories', function () {
-        return view('admin.products.products-sub-sub-categories');
-    })->name('admin.products.products-sub-sub-categories');
-
-    Route::get('/admin/products/add-products-categories', function () {
-        return view('admin.products.add-products-categories');
-    })->name('admin.products.add-products-categories');
-
-    Route::get('/admin/products/product-vendors', function () {
-        return view('admin.products.products-vendors');
-    })->name('admin.products.products-vendors');
-
-    // End Products
-
-//////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     // // Services
     // Route::get('/admin/services/service-categories', function () {
@@ -227,6 +268,40 @@ Route::group(['middleware' => [
 });
 
 // Start of routes those; require snctum authentication
+// and with middleware 'ensure.user.is.seller'
+/////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////
+// Start of routes those; require snctum authentication
+// and with middleware 'ensure.user.is.seller'
+
+Route::group(['middleware' => [
+    'auth:sanctum',
+    'verified',
+    'ensure.user.is.seller'
+]], function () {
+
+    Route::get('/products/my-products', function () {
+        return view('products.my-products');
+    })->name('products.my-products');
+
+    // // Display product orders
+    Route::get('/products/my-products-orders', function () {
+        return view('products.my-product-orders');
+    })->name('products.my-products-orders');
+
+});
+
+// Start of routes those; require snctum authentication
+// and with middleware 'ensure.user.is.seller'
+/////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+// Start of routes those; require snctum authentication
 Route::group(['middleware' => [
     'auth:sanctum',
     'verified',
@@ -235,8 +310,8 @@ Route::group(['middleware' => [
 
 
     Route::get('dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
+        return view('users.dashboard.user-dashboard');
+    })->name('users.dashboard.user-dashboard');
 
     // // user's all posts
     // Route::get('/posts/my-posts', function () {
@@ -297,9 +372,9 @@ Route::group(['middleware' => [
     //     return view('products.create-new-product');
     // })->name('products.create-new-product');
 
-    // Route::get('/products/product-checkout', function () {
-    //     return view('products.product-checkout');
-    // })->name('products.product-checkout');
+    Route::get('/products/product-checkout', function () {
+        return view('products.product-checkout');
+    })->name('products.product-checkout');
 
     // Route::get('/products/my-products', function () {
     //     return view('products.my-products');
@@ -324,14 +399,15 @@ Route::group(['middleware' => [
 // Route::get('/posts/{urlslug}', PostShow::class)->where('urlslug', '[A-Za-z0-9-_]+')->name('posts.post-show');
 // // post show page
 // Route::get('/pages/page-detail/{page_id}', PageDetailComponent::class)->name('pages.page-detail-component');
+
 // // product detail page
-// Route::get('/products/product-detail/{product_id}', ProductDetailComponent::class)->name('products.product-detail');
+Route::get('/products/product-detail/{product_id}', ProductDetailComponent::class)->name('products.product-detail');
 // // product cart page
-// // Route::get('/products/product-cart', ProductCart::class)->name('products.product-cart');
+Route::get('/products/product-cart', ProductCartComponent::class)->name('products.product-cart');
 // // product wishlist page
-// // Route::get('/products/product-wishlist', ProductWishlistComponent::class)->name('products.product-wishlist');
+Route::get('/products/product-wishlist', ProductWishlistComponent::class)->name('products.product-wishlist');
 // // product detail page
-// Route::get('/products/products-by-category/{product_category_slug}', ProductsByCategory::class)->where('product_category_slug', '[A-Za-z0-9-_]+')->name('products.products-by-category');
+Route::get('/products/products-by-category/{product_category_slug}', ProductsByCategory::class)->where('product_category_slug', '[A-Za-z0-9-_]+')->name('products.products-by-category');
 
 // //start of services livewire routes
 // // service detail page
@@ -436,9 +512,9 @@ Route::get('/test', function () {
 })->name('test');
 
 
-// Route::get('/products/product-cart', function () {
-//     return view('products.product-cart');
-// })->name('products.product-cart');
+Route::get('/products/product-cart', function () {
+    return view('products.product-cart');
+})->name('products.product-cart');
 
 Route::get('/', function () {
     return view('home');

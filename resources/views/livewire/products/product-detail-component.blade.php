@@ -25,13 +25,22 @@
                                 </div>
                                 <div class="p-2 w-full">
                                     <ul class="flex">
-                                        @foreach (json_decode($product->product_images) as $image)
-                                            <li class="">
-                                                <button wire:click='imagePreview("{{ $image }}")'>
-                                                    <img class="p-2 object-cover object-center h-12 w-16" src="{{ env('APP_URL') . '/products-images/' . $image }}" alt="Banner Image">
-                                                </button>
-                                            </li>
-                                        @endforeach
+                                        @if (!empty($product->product_images))
+                                            @if (is_array($product->product_images))
+                                                @foreach (json_decode($product->product_images) as $image)
+                                                    <li class="">
+                                                        <button wire:click='imagePreview("{{ $image }}")'>
+                                                            <img class="p-2 object-cover object-center h-12 w-16" src="{{ env('APP_URL') . '/products-images/' . $image }}" alt="Product Images">
+                                                        </button>
+                                                    </li>
+                                                @endforeach
+                                            @endif
+                                        @else
+                                        <li class="">
+                                            No image to dispaly
+                                        </li>
+                                        @endif
+
                                     </ul>
                                     {{-- <ul>
                                         <li>Service Videos</li>

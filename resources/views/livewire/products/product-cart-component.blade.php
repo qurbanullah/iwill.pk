@@ -98,18 +98,15 @@
 
                                 <div class="p-2 grid grid-cols-1 place-items-end">
                                     <button wire:click.prevent="deleteCartItem('{{ $item->rowId }}')">
-                                        <svg xmlns="http://www.w3.org/2000/svg"
-                                            xmlns:xlink="http://www.w3.org/1999/xlink"
+                                        <svg
+                                            xmlns="http://www.w3.org/2000/svg"
                                             aria-hidden="true"
-                                            focusable="false"
-                                            width="2em"
-                                            height="2em"
-                                            style="-ms-transform: rotate(360deg); -webkit-transform: rotate(360deg); transform: rotate(360deg);"
+                                            role="img"
+                                            width="1.2em"
+                                            height="1.2em"
                                             preserveAspectRatio="xMidYMid meet"
                                             viewBox="0 0 64 64">
-                                            <path d="M62 52c0 5.5-4.5 10-10 10H12C6.5 62 2 57.5 2 52V12C2 6.5 6.5 2 12 2h40c5.5 0 10 4.5 10 10v40z"
-                                            fill="#ff5a79"/>
-                                            <path fill="#fff" d="M50 21.2L42.8 14L32 24.8L21.2 14L14 21.2L24.8 32L14 42.8l7.2 7.2L32 39.2L42.8 50l7.2-7.2L39.2 32z"/>
+                                            <path fill="#ec1c24" d="M50.592 2.291L32 20.884C25.803 14.689 19.604 8.488 13.406 2.291c-7.17-7.17-18.284 3.948-11.12 11.12c6.199 6.193 12.4 12.395 18.592 18.592A32589.37 32589.37 0 0 1 2.286 50.595c-7.164 7.168 3.951 18.283 11.12 11.12c6.197-6.199 12.396-12.399 18.593-18.594l18.592 18.594c7.17 7.168 18.287-3.951 11.12-11.12c-6.199-6.199-12.396-12.396-18.597-18.594c6.2-6.199 12.397-12.398 18.597-18.596c7.168-7.166-3.949-18.284-11.12-11.11"/>
                                         </svg>
                                     </button>
                                 </div>
@@ -351,7 +348,7 @@
                                             </button>
 
                                             <input
-                                                class="outline-none focus:outline-none text-center w-32 bg-gray-300 font-semibold text-md hover:text-black focus:text-black  md:text-basecursor-default flex items-center text-gray-700  outline-none"
+                                                class="focus:outline-none text-center w-32 bg-gray-300 font-semibold text-md hover:text-black focus:text-black  md:text-basecursor-default flex items-center text-gray-700  outline-none"
                                                 type="number"
                                                 name="product-quatity"
                                                 value="{{ $item->qty }}"

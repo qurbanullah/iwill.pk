@@ -112,8 +112,8 @@
                                                         <td class="px-6 py-2 text-sm whitespace-no-wrap">
                                                             {{ $item->is_active }}
                                                         </td>
-                                                        <td class="px-6 py-2 text-sm whitespace-no-wrap">
-                                                            {{ $item->product_category_id }}
+                                                        <td class="px-6 py-4 text-sm whitespace-no-wrap">
+                                                            {{ ($item->is_active == 1) ? 'Active' : 'Inactive' }}
                                                         </td>
 
                                                         <td class="px-6 py-2 text-right text-sm">
@@ -172,8 +172,8 @@
                                                         <td class="px-6 py-2 text-sm whitespace-no-wrap">
                                                             {{ $item->image }}
                                                         </td>
-                                                        <td class="px-6 py-2 text-sm whitespace-no-wrap">
-                                                            {{ $item->is_active }}
+                                                        <td class="px-6 py-4 text-sm whitespace-no-wrap">
+                                                            {{ ($item->is_active == 1) ? 'Active' : 'Inactive' }}
                                                         </td>
                                                         <td class="px-6 py-2 text-sm whitespace-no-wrap">
                                                             {{ $item->product_category_id }}
@@ -238,7 +238,7 @@
                 <x-slot name="content">
                     <div class="mt-4">
                         <x-jet-label for="name" value="{{ __('Name') }}" class="text-lg dark:text-white" />
-                        <x-jet-input id="name" class="block mt-1 w-full dark:bg-gray-500 dark:text-white" type="text" wire:model.debounce.800ms="name" />
+                        <x-jet-input id="name" class="w-full" type="text" wire:model.debounce.800ms="name" />
                         @error('name') <span class="error text-red-500">{{ $message }}</span> @enderror
                     </div>
                     <div class="mt-4">

@@ -7,7 +7,9 @@ use Livewire\WithPagination;
 
 use App\Models\Product;
 
+use Exception;
 use Cart;
+use Gloudemans\Shoppingcart\Facades\Cart as FacadesCart;
 
 class ProductShopComponent extends Component
 {
@@ -96,9 +98,17 @@ class ProductShopComponent extends Component
     */
     public function AddProductToCart($product_id, $product_name, $product_price)
     {
+        try{
         Cart::instance('cart')->add($product_id, $product_name, 1, $product_price)->associate('App\Models\Product');
         $this->emitTo('products.product-cart-count-component', 'refreshComponent');
-        // dd(Cart::content());
+
+        $this->dispatchBrowserEvent('alert',
+            ['type' => 'success',  'message' => 'Product Added to Cart.']);
+
+        }catch(Exception $e){
+            $this->dispatchBrowserEvent('alert',
+            ['type' => 'warning',  'message' => 'Error Adding Product to Cart.']);
+        }
 
         session()->flash('message', 'Item added in cart');
         return redirect()->route('products.product-cart');
@@ -111,12 +121,21 @@ class ProductShopComponent extends Component
     */
     public function AddProductToWishList($product_id, $product_name, $product_price)
     {
-        Cart::instance('wishlist')->add($product_id, $product_name, 1, $product_price)->associate('App\Models\Product');
-        $this->emitTo('products.product-wishlist-count-component', 'refreshComponent');
+        try{
+            Cart::instance('wishlist')->add($product_id, $product_name, 1, $product_price)->associate('App\Models\Product');
+            $this->emitTo('products.product-wishlist-count-component', 'refreshComponent');
+
+            $this->dispatchBrowserEvent('alert',
+            ['type' => 'success',  'message' => 'Product Added to Wishlist.']);
+
+        }catch(Exception $e){
+            $this->dispatchBrowserEvent('alert',
+            ['type' => 'warning',  'message' => 'Error Adding Product to Wishlist.']);
+        }
     }
 
     /**
-    * The add product to cart function.
+    * The remove product from wishlist function.
     *
     * @return void
     */
@@ -124,9 +143,19 @@ class ProductShopComponent extends Component
     {
         foreach (Cart::instance('wishlist')->content() as $witems){
             if($witems->id == $product_id){
-                Cart::instance('wishlist')->remove($witems->rowId);
-                $this->emitTo('products.product-wishlist-count-component', 'refreshComponent');
-                return;
+                try{
+                    Cart::instance('wishlist')->remove($witems->rowId);
+                    $this->emitTo('products.product-wishlist-count-component', 'refreshComponent');
+
+                    $this->dispatchBrowserEvent('alert',
+                    ['type' => 'success',  'message' => 'Product Removed from Wishlist.']);
+
+                    return;
+
+                }catch(Exception $e){
+                    $this->dispatchBrowserEvent('alert',
+                    ['type' => 'warning',  'message' => 'Error Removing Product from Wishlist.']);
+                }
             }
         }
     }
@@ -138,6 +167,10 @@ class ProductShopComponent extends Component
     */
     public function render()
     {
+        if (auth()->check()){
+            Cart::instance('cart')->store(auth()->user()->email);
+        }
+
         return view('livewire.products.product-shop-component', [
             'searchedData' => $this->readDatabaeForSearchQuery(),
             'products' => $this->readProductDatabase(),

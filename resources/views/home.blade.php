@@ -11,25 +11,25 @@
         {{-- livewire banner componenet --}}
         <div class="">
             <div class="mx-auto">
-                @include('home.home-banner-products')
+                @livewire('home.home-banner-products')
             </div>
             <div class="mx-auto">
-                @include('home.home-banner-services')
+                @livewire('home.home-banner-services')
             </div>
             <div class="mx-auto">
-                @include('home.home-banner-professionals')
+                @livewire('home.home-banner-professionals')
             </div>
             <div class="mx-auto">
-                @include('home.home-banner-featured-offers')
+                @livewire('home.home-banner-featured-offers')
             </div>
             <div class="mx-auto">
-                @include('home.home-banner-most-viewed')
+                @livewire('home.home-banner-most-viewed')
             </div>
             <div class="mx-auto">
-                @include('home.home-banner-trending')
+                @livewire('home.home-banner-trending')
             </div>
             <div class="mx-auto">
-                @include('home.home-banner-best-offers')
+                @livewire('home.home-banner-best-offers')
             </div>
         </div>
 

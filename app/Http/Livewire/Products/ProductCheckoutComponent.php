@@ -243,7 +243,9 @@ class ProductCheckoutComponent extends Component
     public function getCountryName()
     {
         $countryName = Country::where('id', $this->countryId)->first();
-        return $countryName->country;
+        if ($countryName) {
+            return $countryName->country;
+        }
     }
 
     /**
@@ -254,7 +256,9 @@ class ProductCheckoutComponent extends Component
     public function getStateName()
     {
         $stateName = State::where('id', $this->stateId)->first();
-        return $stateName->state;
+        if ($stateName) {
+            return $stateName->state;
+        }
     }
 
     /**
@@ -265,7 +269,9 @@ class ProductCheckoutComponent extends Component
     public function getCityName()
     {
         $cityName = City::where('id', $this->cityId)->first();
-        return $cityName->city;
+        if ($cityName) {
+            return $cityName->city;
+        }
     }
 
     /**
@@ -276,7 +282,9 @@ class ProductCheckoutComponent extends Component
     public function getDistrictName()
     {
         $districtName = District::where('id', $this->districtId)->first();
-        return $districtName->district;
+        if ($districtName) {
+            return $districtName->district;
+        }
     }
 
     /**
@@ -287,7 +295,9 @@ class ProductCheckoutComponent extends Component
     public function getTehsilName()
     {
         $tehsilName = Tehsil::where('id', $this->tehsilId)->first();
-        return $tehsilName->tehsil;
+        if ($tehsilName) {
+            return $tehsilName->tehsil;
+        }
     }
 
     public function placeOrder()

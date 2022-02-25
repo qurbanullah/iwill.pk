@@ -357,6 +357,16 @@
                 </div>
             </div>
             <div class="md:w-3/12 flex items-center justify-end">
+
+                {{-- mini cart and wishlist components --}}
+                <div class="hidden md:flex mt-2">
+                    <div class="hidden sm:flex p-1 ">
+                        @livewire('products.product-wishlist-count-component')
+                        @livewire('products.product-cart-count-component')
+                    </div>
+                </div>
+                {{-- end mini cart and wishlist components --}}
+
                 <div class="hidden md:flex items-center justify-end">
                     <div class="hidden sm:flex items-center justify-end">
                         @if(empty(Auth::user()))
@@ -504,12 +514,12 @@
                                         {{ __('Dashboard') }}
                                     </div>
 
-                                    <x-jet-dropdown-link href="{{ route('dashboard') }}">
+                                    <x-jet-dropdown-link href="{{ route('users.dashboard.user-dashboard') }}">
                                         {{ __('Dashboard') }}
                                     </x-jet-dropdown-link>
 
-                                    @if(!empty(Auth::user()->roles->role))
-                                        @if (Auth::user()->roles->role === 'admin')
+                                    @if(!empty(Auth::user()->role))
+                                        @if (Auth::user()->role === 'admin')
                                             <x-jet-dropdown-link href="{{ route('admin.dashboard.admin-dashboard') }}">
                                                 {{ __('Admin Dashboard') }}
                                             </x-jet-dropdown-link>
@@ -577,13 +587,13 @@
                     {{ __('Services') }}
                 </x-jet-responsive-nav-link>
                 @auth
-                    <x-jet-responsive-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
+                    <x-jet-responsive-nav-link href="{{ route('users.dashboard.user-dashboard') }}" :active="request()->routeIs('users.dashboard.user-dashboard')">
                         {{ __('Dashboard') }}
                     </x-jet-responsive-nav-link>
                 @endauth
 
-                @if(!empty(Auth::user()->roles->role))
-                    @if (Auth::user()->roles->role === 'admin')
+                @if(!empty(Auth::user()->role))
+                    @if (Auth::user()->role === 'admin')
                         <x-jet-dropdown-link href="{{ route('admin.dashboard.admin-dashboard') }}">
                             {{ __('Admin Dashboard') }}
                         </x-jet-dropdown-link>

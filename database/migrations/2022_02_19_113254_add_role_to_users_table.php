@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddStatusToUsersTable extends Migration
+class AddRoleToUsersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,7 +14,8 @@ class AddStatusToUsersTable extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->boolean('is_active')->default(1)->after('role')->nullable();
+            $table->enum('role', ['admin', 'author', 'business-owner', 'client', 'employ', 'professional', 'seller', 'service-provider', 'subscriber', 'vendor'])->after('profile_photo_path')->nullable();
+            // $table->boolean('roles')->default(1)->after('profile_photo_path')->nullable();
         });
     }
 
