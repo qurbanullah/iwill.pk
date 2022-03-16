@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+{{-- <html lang="{{ str_replace('_', '-', app()->getLocale()) }}"  class="no-js"> --}}
+    <html lang="{{ str_replace('_', '-', app()->getLocale()) }}"  class="no-js">
     <head>
         <meta charset="utf-8">
         <title>@yield('title', config('app.name') . " - " . 'online e-commerce, e-professional and e-services platform all in one place')</title>
@@ -49,6 +50,22 @@
         <!-- Styles -->
         <link rel="stylesheet" href="{{ mix('css/app.css') }}">
 
+        {{-- <style>
+            /* Paste this css to your style sheet file or under head tag */
+            /* This only works with JavaScript,
+            if it's not present, don't show loader */
+            .no-js #loader { display: none;  }
+            .js #loader { display: block; position: absolute; left: 100px; top: 0; }
+            .se-pre-con {
+                position: fixed;
+                left: 0px;
+                top: 0px;
+                width: 100%;
+                height: 100%;
+                z-index: 9999;
+                background: url(img/loader/loader-64x/Preloader_2.gif) center no-repeat #c2c2c2;
+            }
+        </style> --}}
         {{-- only load trixassest for those route which requred these assets --}}
         {{-- @if (Route::current()->getName() == 'admin.posts.admin-create-new-post'
             OR Route::current()->getName() == 'posts.post-detail-component'
@@ -67,7 +84,10 @@
             <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js" defer></script>
             <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet">
             <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" defer></script>
+            {{-- <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js"></script> --}}
+            {{-- <script src="http://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.2/modernizr.js"></script> --}}
         {{-- @endif --}}
+
 
 
         <!-- Scripts -->
@@ -152,6 +172,9 @@
         <script src="{{ mix('js/app.js') }}" defer></script>
     </head>
     <body class="font-sans antialiased">
+        <!-- Paste this code after body tag -->
+            {{-- <div class="se-pre-con"></div> --}}
+        <!-- Ends -->
         <x-jet-banner />
 
         <div class="min-h-screen bg-gray-50 dark:bg-gray-900 text-gray-800 dark:text-gray-100">
@@ -305,5 +328,13 @@
                             }
                         });
         </script>
+        {{-- <script>
+            //paste this code under head tag or in a seperate js file.
+            // Wait for window load
+            $(window).load(function() {
+                // Animate loader off screen
+                $(".se-pre-con").fadeOut("slow");;
+            });
+        </script> --}}
     </body>
 </html>

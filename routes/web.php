@@ -18,9 +18,6 @@ use App\Http\Livewire\Posts\PostEdit;
 use App\Http\Livewire\Admin\Businesses\EditBusinessComponent;
 use App\Http\Livewire\Admin\Categories\MainCategoriesComponent;
 
-
-
-
 use App\Http\Livewire\Users\Professional;
 use App\Http\Livewire\Users\ProfessionalsSearchResult;
 
@@ -108,6 +105,10 @@ Route::group(['middleware' => [
     Route::get('/admin/user-products', function () {
         return view('admin.products.user-products');
     })->name('admin.products.user-products');
+
+    Route::get('/admin/products/product-attributes', function () {
+        return view('admin.products.products-attributes');
+    })->name('admin.products.products-attributes');
 
     Route::get('/admin/products/product-categories', function () {
         return view('admin.products.products-categories');

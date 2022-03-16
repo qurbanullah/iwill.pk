@@ -49,9 +49,15 @@
                         <div x-data="{ open: false }" class="mb-6">
                             <button @click="open = !open" class="flex justify-between items-center text-gray-700 dark:text-gray-400 hover:text-gray-500 hover:dark:text-gray-300 cursor-pointer focus:outline-none">
                                 <span class="flex items-center">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-puzzle" width="18" height="18" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                        <path stroke="none" d="M0 0h24v24H0z"></path>
-                                        <path d="M4 7h3a1 1 0 0 0 1 -1v-1a2 2 0 0 1 4 0v1a1 1 0 0 0 1 1h3a1 1 0 0 1 1 1v3a1 1 0 0 0 1 1h1a2 2 0 0 1 0 4h-1a1 1 0 0 0 -1 1v3a1 1 0 0 1 -1 1h-3a1 1 0 0 1 -1 -1v-1a2 2 0 0 0 -4 0v1a1 1 0 0 1 -1 1h-3a1 1 0 0 1 -1 -1v-3a1 1 0 0 1 1 -1h1a2 2 0 0 0 0 -4h-1a1 1 0 0 1 -1 -1v-3a1 1 0 0 1 1 -1"></path>
+                                    <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        aria-hidden="true"
+                                        role="img"
+                                        width="1em"
+                                        height="1em"
+                                        preserveAspectRatio="xMidYMid meet"
+                                        viewBox="0 0 24 24">
+                                        <path fill="currentColor" d="M12 2a5 5 0 1 0 5 5a5 5 0 0 0-5-5zm0 8a3 3 0 1 1 3-3a3 3 0 0 1-3 3zm9 11v-1a7 7 0 0 0-7-7h-4a7 7 0 0 0-7 7v1h2v-1a5 5 0 0 1 5-5h4a5 5 0 0 1 5 5v1z"/>
                                     </svg>
 
                                     <span class="mx-2 text-sm font-medium">Users</span>
@@ -64,7 +70,16 @@
                                 </span>
                             </button>
 
-                            <div x-show="open" class="pt-2">
+                            <div
+                                x-show="open"
+                                x-transition:enter="transition ease-out duration-1000"
+                                x-transition:enter-start="opacity-0 transform scale-90"
+                                x-transition:enter-end="opacity-100 transform scale-100"
+                                x-transition:leave="transition ease-in duration-1000"
+                                x-transition:leave-start="opacity-100 transform scale-100"
+                                x-transition:leave-end="opacity-0 transform scale-90"
+                                class="pt-2"
+                            >
                                 <div class="flex w-full justify-between">
                                     <a class="py-2 pl-8 block text-xs text-gray-700 dark:text-gray-400 hover:text-gray-500 hover:dark:text-gray-300" href="{{ route('admin.users.all-users') }}">All Users</a>
                                 </div>
@@ -76,7 +91,7 @@
                     </li>
                     <li>
                         <div x-data="{ open: false }" class="mb-6">
-                            <button @click="open = !open" class="flex justify-between items-center text-gray-700 dark:text-gray-400 hover:text-gray-500 hover:dark:text-gray-300 cursor-pointer focus:outline-none">
+                            <button @click="open = (open) ? false : true" class="flex justify-between items-center text-gray-700 dark:text-gray-400 hover:text-gray-500 hover:dark:text-gray-300 cursor-pointer focus:outline-none">
                                 <span class="flex items-center">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-puzzle" width="18" height="18" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
                                         <path stroke="none" d="M0 0h24v24H0z"></path>
@@ -93,13 +108,23 @@
                                 </span>
                             </button>
 
-                            <div x-show="open" class="pt-2">
+                            <div
+                                x-show="open"
+                                x-transition:enter="transition ease-out duration-1000"
+                                x-transition:enter-start="opacity-0 transform scale-90"
+                                x-transition:enter-end="opacity-100 transform scale-100"
+                                x-transition:leave="transition ease-in duration-1000"
+                                x-transition:leave-start="opacity-100 transform scale-100"
+                                x-transition:leave-end="opacity-0 transform scale-90"
+                                class="pt-2"
+                            >
                                 <div class="flex w-full justify-between">
                                     <a class="py-2 pl-8 block text-xs text-gray-700 dark:text-gray-400 hover:text-gray-500 hover:dark:text-gray-300" href="{{ route('admin.products.all-products') }}">All Products</a>
                                     <div class="py-1 px-3 bg-gray-600 rounded text-gray-300 flex items-center justify-center text-xs">8</div>
                                 </div>
                                 <a class="py-2 pl-8 block text-xs text-gray-700 dark:text-gray-400 hover:text-gray-500 hover:dark:text-gray-300" href="{{ route('admin.products.products-orders') }}">Prodects Orders</a>
                                 <a class="py-2 pl-8 block text-xs text-gray-700 dark:text-gray-400 hover:text-gray-500 hover:dark:text-gray-300" href="{{ route('admin.products.products-vendors') }}">Product Vendors</a>
+                                <a class="py-2 pl-8 block text-xs text-gray-700 dark:text-gray-400 hover:text-gray-500 hover:dark:text-gray-300" href="{{ route('admin.products.products-attributes') }}">Product Attributes</a>
                                 <a class="py-2 pl-8 block text-xs text-gray-700 dark:text-gray-400 hover:text-gray-500 hover:dark:text-gray-300" href="{{ route('admin.products.products-categories') }}">Product Categories</a>
                                 <a class="py-2 pl-8 block text-xs text-gray-700 dark:text-gray-400 hover:text-gray-500 hover:dark:text-gray-300" href="{{ route('admin.products.products-sub-categories') }}">Product Sub Categories</a>
                                 <a class="py-2 pl-8 block text-xs text-gray-700 dark:text-gray-400 hover:text-gray-500 hover:dark:text-gray-300" href="{{ route('admin.products.products-sub-sub-categories') }}">Product Sub Sub Categories</a>
