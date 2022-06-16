@@ -25,7 +25,10 @@ class User extends Authenticatable implements MustVerifyEmail
     *
     * @var string
     */
-    protected $connection = "mysql";
+    // Note: default connection, it should not be used
+    // if used, it will override all the DB::connection instances,
+    // Which we donn't want to do.
+    // protected $connection = "mysql";
 
     /**
     * The database table used by the model.
