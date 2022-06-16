@@ -32,7 +32,7 @@ class CreateProductsTable extends Migration
             $table->string('product_banner_image')->nullable();
             $table->string('product_images')->nullable();
             $table->boolean('is_active')->default(false);
-            $table->foreignId('user_id')->constrained()->cascadeOnDelete()->on(new Expression($databaseUsers . '.users'));
+            $table->foreignId('user_id')->constrained()->on(new Expression($databaseUsers . '.users'));
             // $table->foreignId('business_id')->constrained()->cascadeOnDelete()->nullable()->on(new Expression($databaseBusinesses . '.businesses'));
             $table->foreignId('product_vendor_id')->constrained()->cascadeOnDelete()->nullable();
             $table->foreignId('product_category_id')->constrained()->cascadeOnDelete();
