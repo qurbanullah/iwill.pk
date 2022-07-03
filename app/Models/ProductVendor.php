@@ -13,7 +13,7 @@ class ProductVendor extends Model
     *
     * @var string
     */
-    protected $connection = "mysql_iwill_products";
+    protected $connection = "mysql_iwill_product";
 
     /**
     * The database table used by the model.

@@ -16,7 +16,7 @@ class CreateCountryStateCityTable extends Migration
      */
     public function up()
     {
-        Schema::connection('mysql_iwill_addresses')->create('countries', function (Blueprint $table) {
+        Schema::connection('mysql_iwill_address')->create('countries', function (Blueprint $table) {
             $table->increments('id');
             $table->string('country',255);
             $table->enum('status', ['active', 'inactive'])->default('active');
@@ -25,7 +25,7 @@ class CreateCountryStateCityTable extends Migration
             $table->softDeletes();
         });
 
-        Schema::connection('mysql_iwill_addresses')->create('states', function (Blueprint $table) {
+        Schema::connection('mysql_iwill_address')->create('states', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('country_id');
             $table->string('state',255);
@@ -38,7 +38,7 @@ class CreateCountryStateCityTable extends Migration
                 ->onUpdate('cascade')->onDelete('cascade');
         });
 
-        Schema::connection('mysql_iwill_addresses')->create('cities', function (Blueprint $table) {
+        Schema::connection('mysql_iwill_address')->create('cities', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('state_id');
             $table->string('city',255);
@@ -62,8 +62,9 @@ class CreateCountryStateCityTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('cities');
-        Schema::dropIfExists('states');
-        Schema::dropIfExists('countries');
+        Schema::connection('mysql_iwill_address')->dropIfExists('cities');
+        Schema::connection('mysql_iwill_address')->dropIfExists('states');
+        Schema::connection('mysql_iwill_address')->dropIfExists('countries');
+
     }
 }

@@ -15,7 +15,7 @@ class CreateProductReviewsTable extends Migration
      */
     public function up()
     {
-        Schema::connection('mysql_iwill_products')->create('product_reviews', function (Blueprint $table) {
+        Schema::connection('mysql_iwill_product')->create('product_reviews', function (Blueprint $table) {
             $databaseUsers = DB::connection('mysql')->getDatabaseName();
             $table->id();
             $table->foreignId('product_id')->constrained()->cascadeOnDelete();
@@ -32,6 +32,6 @@ class CreateProductReviewsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('product_reviews');
+        Schema::connection('mysql_iwill_product')->dropIfExists('product_reviews');
     }
 }

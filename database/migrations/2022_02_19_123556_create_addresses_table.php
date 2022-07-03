@@ -15,11 +15,16 @@ class CreateAddressesTable extends Migration
      */
     public function up()
     {
-        Schema::connection('mysql')->create('addresses', function (Blueprint $table) {
+        Schema::connection('mysql_iwill_address')->create('addresses', function (Blueprint $table) {
             $databaseUsers = DB::connection('mysql')->getDatabaseName();
             $table->id();
             $table->foreignId('user_id')->constrained()->cascadeOnDelete()->on(new Expression($databaseUsers . '.users'));
             // $table->foreignId('user_id')->constrained()->cascadeOnDelete();
+            // $table->foreignId('country_id')->constrained()->cascadeOnDelete();
+            // $table->foreignId('state_id')->constrained()->cascadeOnDelete();
+            // $table->foreignId('city_id')->constrained()->cascadeOnDelete();
+            // $table->foreignId('district_id')->constrained()->cascadeOnDelete();
+            // $table->foreignId('tehsil_id')->constrained()->cascadeOnDelete();
             $table->unsignedInteger('country_id')->nullable();
             $table->unsignedInteger('state_id')->nullable();
             $table->unsignedInteger('city_id')->nullable();
@@ -35,6 +40,21 @@ class CreateAddressesTable extends Migration
             $table->string('phone_no')->nullable();
             $table->string('mobile_no')->nullable();
             $table->timestamps();
+
+            $table->foreign('country_id')->references('id')->on('countries')
+                ->onUpdate('cascade')->onDelete('cascade');
+
+            $table->foreign('state_id')->references('id')->on('states')
+                ->onUpdate('cascade')->onDelete('cascade');
+
+            $table->foreign('city_id')->references('id')->on('cities')
+                ->onUpdate('cascade')->onDelete('cascade');
+
+            $table->foreign('district_id')->references('id')->on('districts')
+                ->onUpdate('cascade')->onDelete('cascade');
+
+            $table->foreign('tehsil_id')->references('id')->on('tehsils')
+                ->onUpdate('cascade')->onDelete('cascade');
         });
     }
 
@@ -45,6 +65,6 @@ class CreateAddressesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('addresses');
+        Schema::connection('mysql_iwill_address')->dropIfExists('addresses');
     }
 }

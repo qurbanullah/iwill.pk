@@ -13,7 +13,7 @@ class CreateProductSubCategoriesTable extends Migration
      */
     public function up()
     {
-        Schema::connection('mysql_iwill_products')->create('product_sub_categories', function (Blueprint $table) {
+        Schema::connection('mysql_iwill_product')->create('product_sub_categories', function (Blueprint $table) {
             $table->id();
             $table->string('name');
             $table->string('slug')->unique();
@@ -32,6 +32,6 @@ class CreateProductSubCategoriesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('product_sub_categories');
+        Schema::connection('mysql_iwill_product')->dropIfExists('product_sub_categories');
     }
 }

@@ -14,7 +14,7 @@ class ProfessionCategory extends Model
     *
     * @var string
     */
-    protected $connection = "mysql_relyface_professionals";
+    protected $connection = "mysql_relyface_professional";
 
 
     /**

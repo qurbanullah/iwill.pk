@@ -14,7 +14,7 @@ class CreateDistrictTehsilTable extends Migration
      */
     public function up()
     {
-        Schema::connection('mysql_iwill_addresses')->create('districts', function (Blueprint $table) {
+        Schema::connection('mysql_iwill_address')->create('districts', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('state_id');
             $table->string('district',255);
@@ -27,7 +27,7 @@ class CreateDistrictTehsilTable extends Migration
                 ->onUpdate('cascade')->onDelete('cascade');
         });
 
-        Schema::connection('mysql_iwill_addresses')->create('tehsils', function (Blueprint $table) {
+        Schema::connection('mysql_iwill_address')->create('tehsils', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('district_id');
             $table->string('tehsil',255);
@@ -52,7 +52,7 @@ class CreateDistrictTehsilTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('districts');
-        Schema::dropIfExists('tehsils');
+        Schema::connection('mysql_iwill_address')->dropIfExists('districts');
+        Schema::connection('mysql_iwill_address')->dropIfExists('tehsils');
     }
 }

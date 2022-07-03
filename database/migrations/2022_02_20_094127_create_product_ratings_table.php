@@ -15,7 +15,7 @@ class CreateProductRatingsTable extends Migration
      */
     public function up()
     {
-        Schema::connection('mysql_iwill_products')->create('product_ratings', function (Blueprint $table) {
+        Schema::connection('mysql_iwill_product')->create('product_ratings', function (Blueprint $table) {
             $databaseUsers = DB::connection('mysql')->getDatabaseName();
             $table->id();
             $table->foreignId('product_id')->constrained()->cascadeOnDelete();
@@ -32,6 +32,6 @@ class CreateProductRatingsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('product_ratings');
+        Schema::connection('mysql_iwill_product')->dropIfExists('product_ratings');
     }
 }

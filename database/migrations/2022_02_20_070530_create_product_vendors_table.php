@@ -13,7 +13,7 @@ class CreateProductVendorsTable extends Migration
      */
     public function up()
     {
-        Schema::connection('mysql_iwill_products')->create('product_vendors', function (Blueprint $table) {
+        Schema::connection('mysql_iwill_product')->create('product_vendors', function (Blueprint $table) {
             $table->id();
             $table->string('name');
             $table->string('slug')->unique();
@@ -31,6 +31,6 @@ class CreateProductVendorsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('product_vendors');
+        Schema::connection('mysql_iwill_product')->dropIfExists('product_vendors');
     }
 }

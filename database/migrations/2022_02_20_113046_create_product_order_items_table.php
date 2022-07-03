@@ -15,7 +15,7 @@ class CreateProductOrderItemsTable extends Migration
      */
     public function up()
     {
-        Schema::connection('mysql_iwill_products')->create('product_order_items', function (Blueprint $table) {
+        Schema::connection('mysql_iwill_product')->create('product_order_items', function (Blueprint $table) {
             $databaseUsers = DB::connection('mysql')->getDatabaseName();
 
             $table->id();
@@ -35,6 +35,6 @@ class CreateProductOrderItemsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('product_order_items');
+        Schema::connection('mysql_iwill_product')->dropIfExists('product_order_items');
     }
 }

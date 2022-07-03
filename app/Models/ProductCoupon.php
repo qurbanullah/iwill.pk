@@ -14,6 +14,6 @@ class ProductCoupon extends Model
     *
     * @var string
     */
-    protected $connection = "mysql_iwill_products";
+    protected $connection = "mysql_iwill_product";
 
 }
