@@ -4,8 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Te7aHoudini\LaravelTrix\Traits\HasTrixRichText;
+use Illuminate\Support\Facades\DB;
 
+use Te7aHoudini\LaravelTrix\Traits\HasTrixRichText;
 
 class Product extends Model
 {
@@ -62,7 +63,10 @@ class Product extends Model
     */
     public function vendor()
     {
-        return $this->belongsTo(User::class, 'user_id');
+        $databaseMain = DB::connection('mysql')->getDatabaseName();
+        return $this->belongsTo(User::class, 'user_id', "$databaseMain.users")->withTimestamps();
+
+        // return $this->belongsTo(User::class, 'user_id');
     }
 
     /**

@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Admin\Products;
 
+use App\Actions\Products\CreateNewProductCategory;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 
@@ -64,14 +65,15 @@ class AddProductCategoryComponent extends Component
     *
     * @return void
     */
-    public function create()
+    public function create(CreateNewProductCategory $action)
     {
-        if (!empty($this->productCategory)) {
-            if ($this->validate()) {
-                productCategory::create($this->modelData());
-                session()->flash('message', 'Saved.');
-            }
-        }
+        // if (!empty($this->productCategory)) {
+        //     if ($this->validate()) {
+        //         productCategory::create($this->modelData());
+        //         session()->flash('message', 'Saved.');
+        //     }
+        // }
+        $action->create($this->modelData());
     }
 
     /**

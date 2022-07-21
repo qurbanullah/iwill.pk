@@ -14,7 +14,7 @@ class AddStatusToUsersTable extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->boolean('is_active')->default(1)->after('role')->nullable();
+            $table->boolean('is_active')->default(1)->after('profile_photo_path')->nullable();
         });
     }
 
@@ -26,7 +26,7 @@ class AddStatusToUsersTable extends Migration
     public function down()
     {
         Schema::table('users', function (Blueprint $table) {
-            //
+            $table->dropColumn('is_active');
         });
     }
 }

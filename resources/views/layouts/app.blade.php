@@ -48,7 +48,9 @@
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
 
         <!-- Styles -->
-        <link rel="stylesheet" href="{{ mix('css/app.css') }}">
+        {{-- <link rel="stylesheet" href="{{ mix('css/app.css') }}"> --}}
+        {{-- @vite(['resources/css/app.css', 'resources/js/app.js']) --}}
+        @vite('resources/css/app.css')
 
         {{-- <style>
             /* Paste this css to your style sheet file or under head tag */
@@ -169,7 +171,8 @@
 
         </script>
         {{-- end of activate the dark theme on system default settings --}}
-        <script src="{{ mix('js/app.js') }}" defer></script>
+        {{-- <script src="{{ mix('js/app.js') }}" defer></script> --}}
+        @vite('resources/js/app.js')
     </head>
     <body class="font-sans antialiased">
         <!-- Paste this code after body tag -->

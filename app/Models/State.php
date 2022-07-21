@@ -16,7 +16,7 @@ class State extends Model
     *
     * @var string
     */
-    protected $connection = "mysql_iwill_addresses";
+    protected $connection = "mysql_iwill_address";
 
     /**
     * The database table used by the model.

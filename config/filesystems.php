@@ -60,6 +60,13 @@ return [
             'visibility' => 'public',
         ],
 
+        'product-categories-images' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/product-categories-images'),
+            'url' => env('APP_URL').'/product-categories-images',
+            'visibility' => 'public',
+        ],
+
         'packages' => [
             'driver' => 'local',
             'root' => storage_path('app/public/packages'),
@@ -147,6 +154,7 @@ return [
         public_path('storage') => storage_path('app/public'),
         public_path('profile-photos') => storage_path('app/public/profile-photos'),
         public_path('products-images') => storage_path('app/public/products-images'),
+        public_path('product-categories-images') => storage_path('app/public/product-categories-images'),
     ],
 
 ];

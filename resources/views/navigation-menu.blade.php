@@ -518,8 +518,8 @@
                                         {{ __('Dashboard') }}
                                     </x-jet-dropdown-link>
 
-                                    @if(!empty(Auth::user()->role))
-                                        @if (Auth::user()->role === 'admin')
+                                    @if(!empty(Auth::user()->roles->role))
+                                        @if (Auth::user()->roles->role === 'admin')
                                             <x-jet-dropdown-link href="{{ route('admin.dashboard.admin-dashboard') }}">
                                                 {{ __('Admin Dashboard') }}
                                             </x-jet-dropdown-link>
@@ -592,8 +592,8 @@
                     </x-jet-responsive-nav-link>
                 @endauth
 
-                @if(!empty(Auth::user()->role))
-                    @if (Auth::user()->role === 'admin')
+                @if(!empty(Auth::user()->roles->role))
+                    @if (Auth::user()->roles->role === 'admin')
                         <x-jet-dropdown-link href="{{ route('admin.dashboard.admin-dashboard') }}">
                             {{ __('Admin Dashboard') }}
                         </x-jet-dropdown-link>

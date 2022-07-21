@@ -85,7 +85,7 @@
                                     <img
                                         class="object-cover w-40 h-40 rounded-full ring-2 hover:ring-4"
                                         {{-- src="{{ env('APP_URL') . '/products-images/' . $item->product_banner_image }}" --}}
-                                        src="/assets/images/lcd.jpg"
+                                        src={{ Thumbnail::src('/assets/images/lcd.jpg', 'public')->smartcrop(50, 50)->url() }}
                                         alt="Cell Phone"
                                     >
                                 </div>

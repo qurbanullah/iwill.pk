@@ -17,8 +17,8 @@ class EnsureUserIsSeller
     public function handle(Request $request, Closure $next)
     {
         try {
-            $userRole = auth()->user()->role;
-            if ($userRole === 'seller') {
+            $userRole = auth()->user()->roles->role;
+            if ($userRole === 'seller' || $userRole === 'admin') {
                 return $next($request);
             } else {
                 abort(403, 'Unauthorized action.');

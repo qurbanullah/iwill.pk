@@ -47,7 +47,8 @@
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
 
         <!-- Styles -->
-        <link rel="stylesheet" href="{{ mix('css/app.css') }}">
+        {{-- <link rel="stylesheet" href="{{ mix('css/app.css') }}"> --}}
+        @vite(['resources/css/app.css', 'resources/js/app.js'])
 
         {{-- only load trixassest for those route which requred these assets --}}
         {{-- @if (Route::current()->getName() == 'admin.posts.admin-create-new-post'
@@ -149,7 +150,7 @@
 
         </script>
         {{-- end of activate the dark theme on system default settings --}}
-        <script src="{{ mix('js/app.js') }}" defer></script>
+        {{-- <script src="{{ mix('js/app.js') }}" defer></script> --}}
     </head>
     <body class="font-sans antialiased">
         <x-jet-banner />

@@ -10,12 +10,15 @@ use App\Models\Product;
 use App\Models\ProductCategory;
 use App\Models\ProductSubCategory;
 use App\Models\ProductSubSubCategory;
+use App\Actions\Products\CreateNewProduct;
 
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 
 use Illuminate\Database\Query\Expression;
 use Illuminate\Support\Facades\DB;
+
+use Exception;
 
 class AllProductsComponent extends Component
 {
@@ -289,9 +292,10 @@ class AllProductsComponent extends Component
      *
      * @return void
      */
-    public function create()
+    public function create(CreateNewProduct $action)
     {
-        $this->validate();
+        // dd($this->modelData());
+        // $this->validate();
 
         if(empty($this->vendor)) {
             $this->vendor = auth()->user()->id;
@@ -306,8 +310,21 @@ class AllProductsComponent extends Component
 
         }
         else {
-            Product::create($this->modelData());
-            $this->modalFormVisible = false;
+            // dd($this->modelData());
+            // try{
+                $action->create($this->modelData());
+                $this->modalFormVisible = false;
+                $this->reset();
+
+                $this->dispatchBrowserEvent('alert',
+                    ['type' => 'success',  'message' => 'Product Created Successfully']);
+                // }
+                // catch(Exception $e){
+                //     $this->dispatchBrowserEvent('alert',
+                //     ['type' => 'warning',  'message' => 'Error Creating Product']);
+                // }
+            // Product::create($this->modelData());
+            // $this->modalFormVisible = false;
         }
 
         $this->reset();

@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Products;
 
+use App\Actions\Products\CreateNewProduct;
 use App\Models\Business;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -14,6 +15,9 @@ use App\Models\ProductSubSubCategory;
 
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
+
+use Exception;
+
 
 class CreateNewProductComponent extends Component
 {
@@ -261,13 +265,15 @@ class CreateNewProductComponent extends Component
      *
      * @return void
      */
-    public function create()
+    public function create(CreateNewProduct $action)
     {
-        $this->validate();
+        // $this->validate();
 
-        if(empty($this->vendor)) {
-            $this->vendor = auth()->user()->id;
-        }
+        // dd($this->modelData());
+
+        // if(empty($this->vendor)) {
+        //     $this->vendor = auth()->user()->id;
+        // }
         // Service banner image
         if($this->imageUploaded) {
             $this->productBannerImage = md5($this->imageUploaded . microtime()).'.'.$this->imageUploaded->extension();
@@ -290,12 +296,24 @@ class CreateNewProductComponent extends Component
             $this->productImages = $this->productImages;
         }
 
-        Product::create($this->modelData());
-        $this->modalFormVisible = false;
+        // Product::create($this->modelData());
 
+        // dd($this->modelData());
+
+        try{
+        $product = $action->create($this->modelData());
+        $this->modalFormVisible = false;
         $this->reset();
 
-        session()->flash('success_message', 'New product created successfully.');
+        $this->dispatchBrowserEvent('alert',
+            ['type' => 'success',  'message' => 'Product Created Successfully']);
+        }
+        catch(Exception $e){
+            $this->dispatchBrowserEvent('alert',
+            ['type' => 'warning',  'message' => 'Error Creating Product']);
+        }
+
+        session()->flash('success_message', 'New product created successfully');
 
     }
 
@@ -393,7 +411,7 @@ class CreateNewProductComponent extends Component
     */
     public function modelData()
     {
-        return [
+        return array(
             'name' => $this->name,
             'slug' => $this->slug,
             'short_description' => $this->shortDescription,
@@ -411,7 +429,7 @@ class CreateNewProductComponent extends Component
             'business_id' => $this->businessId,
             'product_category_id' => $this->productCategoryId,
             'product_sub_category_id' => $this->productSubCategoryId,
-        ];
+        );
     }
 
 

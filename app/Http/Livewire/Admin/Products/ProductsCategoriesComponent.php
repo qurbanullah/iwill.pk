@@ -6,6 +6,7 @@ use Livewire\Component;
 use Livewire\WithPagination;
 use Livewire\WithFileUploads;
 
+use App\Actions\Products\CreateNewProductCategory;
 use App\Models\ProductCategory;
 use App\Models\BusinessCategory;
 use App\Models\ProfessionCategory;
@@ -200,40 +201,62 @@ class ProductsCategoriesComponent extends Component
      *
      * @return void
      */
-    public function create()
+    public function create(CreateNewProductCategory $action)
     {
-        try{
-            $this->validate();
-
-            if($this->imageUploaded) {
-                $this->image = md5($this->imageUploaded . microtime()).'.'.$this->imageUploaded->extension();
-                $this->imageUploaded->storeAs('public/product-categories-images', $this->image);
-
-                ProductCategory::create($this->modelData());
-                // BusinessCategory::create($this->modelData());
-                // ProductCategory::create($this->modelData());
-                // ProfessionCategory::create($this->modelData());
-                // ServiceCategory::create($this->modelData());
+        // try{
+            $result = $action->create($this->modelData());
+            if ($result)
+            {
                 $this->modalFormVisible = false;
+                $this->resetPage();
+
+                $this->dispatchBrowserEvent('alert',
+                    ['type' => 'success',  'message' => 'Product created Successfully!']);
             }
-            else {
-                ProductCategory::create($this->modelData());
-                // BusinessCategory::create($this->modelData());
-                // ProductCategory::create($this->modelData());
-                // ProfessionCategory::create($this->modelData());
-                // ServiceCategory::create($this->modelData());
+            else{
                 $this->modalFormVisible = false;
+                $this->resetPage();
+
+                $this->dispatchBrowserEvent('alert',
+                    ['type' => 'warning',  'message' => 'Error Creating Product.']);
             }
+        // }catch(Exception $e){
+        //     $this->dispatchBrowserEvent('alert',
+        //     ['type' => 'warning',  'message' => 'Error Creating Product.']);
+        // }
 
-            $this->resetPage();
+        // try{
+        //     $this->validate();
 
-            $this->dispatchBrowserEvent('alert',
-            ['type' => 'success',  'message' => 'Product created Successfully!']);
+        //     if($this->imageUploaded) {
+        //         $this->image = md5($this->imageUploaded . microtime()).'.'.$this->imageUploaded->extension();
+        //         $this->imageUploaded->storeAs('public/product-categories-images', $this->image);
 
-        }catch(Exception $e){
-            $this->dispatchBrowserEvent('alert',
-            ['type' => 'warning',  'message' => 'Error Creating Product.']);
-        }
+        //         ProductCategory::create($this->modelData());
+        //         // BusinessCategory::create($this->modelData());
+        //         // ProductCategory::create($this->modelData());
+        //         // ProfessionCategory::create($this->modelData());
+        //         // ServiceCategory::create($this->modelData());
+        //         $this->modalFormVisible = false;
+        //     }
+        //     else {
+        //         ProductCategory::create($this->modelData());
+        //         // BusinessCategory::create($this->modelData());
+        //         // ProductCategory::create($this->modelData());
+        //         // ProfessionCategory::create($this->modelData());
+        //         // ServiceCategory::create($this->modelData());
+        //         $this->modalFormVisible = false;
+        //     }
+
+        //     $this->resetPage();
+
+        //     $this->dispatchBrowserEvent('alert',
+        //     ['type' => 'success',  'message' => 'Product created Successfully!']);
+
+        // }catch(Exception $e){
+        //     $this->dispatchBrowserEvent('alert',
+        //     ['type' => 'warning',  'message' => 'Error Creating Product.']);
+        // }
     }
 
     /**

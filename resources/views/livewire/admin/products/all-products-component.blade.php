@@ -318,11 +318,11 @@
                         <x-jet-input id="short_description" class="block mt-1 w-full dark:bg-gray-500 dark:text-white" type="text" wire:model.debounce.800ms="shortDescription" />
                         @error('shortDescription') <span class="error text-red-500">{{ $message }}</span> @enderror
                     </div>
-                    <div class="mt-4">
+                    {{-- <div class="mt-4">
                         <x-jet-label for="description" value="{{ __('Description') }}" class="text-lg dark:text-white" />
                         <x-jet-input id="description" class="block mt-1 w-full dark:bg-gray-500 dark:text-white" type="text" wire:model.debounce.800ms="description" />
                         @error('description') <span class="error text-red-500">{{ $message }}</span> @enderror
-                    </div>
+                    </div> --}}
                     <div class="mt-4">
                         <x-jet-label for="regular_price" value="{{ __('Regular Price') }}" class="text-lg dark:text-white" />
                         <x-jet-input id="regular_price" class="block mt-1 w-full dark:bg-gray-500 dark:text-white" type="text" wire:model.debounce.800ms="regularPrice" />
@@ -388,7 +388,7 @@
                             </select>
                         </label>
                     </div>
-                    <div class="mt-4">
+                    {{-- <div class="mt-4">
                         <x-jet-label for="shortDescription" value="{{ __('Short Description') }}" class="text-lg dark:text-white" />
                         <div class="rounded-md shadow-sm">
                             <div class="mt-1 bg-white dark:bg-gray-500 dark:text-white">
@@ -406,7 +406,7 @@
                             </div>
                         </div>
                         @error('shortDescription') <span class="error text-red-500">{{ $message }}</span> @enderror
-                    </div>
+                    </div> --}}
                     <div class="mt-4">
                         <x-jet-label for="description" value="{{ __('Description') }}" class="text-lg dark:text-white" />
                         <div class="rounded-md shadow-sm">

@@ -33,6 +33,8 @@ use App\Http\Livewire\Services\ServiceCheckoutComponent;
 use App\Http\Livewire\Services\ServiceDetailComponent;
 use App\Http\Livewire\Services\ServiceEditComponent;
 
+use App\Http\Controllers\Web\Procucts\CreateNewProductCategoryController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -129,6 +131,10 @@ Route::group(['middleware' => [
     Route::get('/admin/products/product-vendors', function () {
         return view('admin.products.products-vendors');
     })->name('admin.products.products-vendors');
+
+    Route::get('/products/create-new-product-category', [CreateNewProductCategoryController::class, 'index']);
+    Route::post('/products/create-new-product-category-store', [CreateNewProductCategoryController::class, 'store']);
+
 
     // End Products
     /////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -293,6 +299,9 @@ Route::group(['middleware' => [
     Route::get('/products/my-products-orders', function () {
         return view('products.my-product-orders');
     })->name('products.my-products-orders');
+
+    // Route::get('/products/create-new-product-category', [CreateNewProductCategoryController::class, 'index']);
+    // Route::post('/products/create-new-product-category-store', [CreateNewProductCategoryController::class, 'store']);
 
 });
 
